@@ -43,27 +43,49 @@ function Box() {
     return outputTensor.data;
   }
 
-  const startDrawing = ({ nativeEvent }) => {
+  const startDrawingMouse = ({ nativeEvent }) => {
     const { layerX, layerY } = nativeEvent;
+    startDrawing(layerX, layerY);
+  };
+
+  const startDrawingTouch = (event) => {
+    const { clientX, clientY } = event.touches[0];
+    startDrawing(clientX, clientY);
+  }
+
+  const startDrawing = (x, y) => {
     contextRef.current.beginPath();
-    contextRef.current.moveTo(layerX, layerY);
+    contextRef.current.moveTo(x, y);
     setIsDrawing(true);
   };
 
-  const finishDrawing = () => {
-    contextRef.current.closePath();
-    setIsDrawing(false);
-  };
-
-  const draw = ({ nativeEvent }) => {
+  const drawMouse = ( {nativeEvent} ) => {
     if (!isDrawing) {
       return;
     }
     const { layerX, layerY } = nativeEvent;
-    contextRef.current.lineTo(layerX, layerY);
+    draw(layerX, layerY);
+  };
+
+ const drawTouch = (event) => {
+    if (!isDrawing) {
+      return;
+    }
+    const { clientX, clientY } = event.touches[0];
+    draw(clientX, clientY);
+
+  };
+
+  const draw = (x, y) => {
+    contextRef.current.lineTo(x, y);
     contextRef.current.stroke();
     let imageData = contextRef.current.getImageData(0, 0, 280, 280);
     runModel(Float32Array.from(imageData.data), sess);
+  }
+
+  const finishDrawing = () => {
+    contextRef.current.closePath();
+    setIsDrawing(false);
   };
 
   function handleReset() {
@@ -76,21 +98,26 @@ function Box() {
 
   return (
     <React.Fragment>
-      <main className="container">
+      <main className="container appWrapper">
         <div className="row flex appBox shadow">
           <div className="col drawingBox">
             <div className="drawingBoxDiv">
               <canvas
-                onMouseDown={startDrawing}
+                onTouchStart={startDrawingTouch}
+                onTouchEnd={finishDrawing}
+                onTouchMove={drawTouch}
+                onMouseDown={startDrawingMouse}
                 onMouseUp={finishDrawing}
-                onMouseMove={draw}
+                onMouseMove={drawMouse}
                 ref={canvasRef}
               ></canvas>
             </div>
           </div>
           <div className="col-4 outputBox">
+            <div className="outputWrapper">
             <OutputBox output={output} />
             <ResetButton onReset={handleReset} />
+            </div>
           </div>
         </div>
       </main>

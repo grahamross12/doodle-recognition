@@ -1,10 +1,13 @@
 import React from "react";
+import "./resetButton.css";
 
 function ResetButton(props) {
   return (
-    <button className="btn btn-light" onClick={props.onReset}>
-      Reset
-    </button>
+    <div className="resetWrapper">
+      <button id="reset" className="btn btn-light" onClick={props.onReset}>
+        Reset
+      </button>
+    </div>
   );
 }
 

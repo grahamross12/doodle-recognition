@@ -1,13 +1,13 @@
 .outputDiv {
   padding-top: 50px;
   position: relative;
-  width: 300px;
+  width: 100%;
   margin-bottom: 30px;
 }
 
 .outputBarDiv {
   float: right;
-  width: 280px;
+  width: calc(100% - 20px);
   height: 100%;
   background-color: rgba(255, 255, 255, 0.2);
 }
@@ -34,5 +34,11 @@
 
 .outputRow {
   height: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+@media only screen and (min-width: 1000px) {
+  .outputRow {
+    margin-bottom: 20px;
+  }
 }

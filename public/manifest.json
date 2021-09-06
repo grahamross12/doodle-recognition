@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Image Recognition",
+  "name": "Image Recognition with neural networks",
   "icons": [
     {
       "src": "favicon.ico",
