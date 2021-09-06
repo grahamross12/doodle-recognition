@@ -29,7 +29,7 @@ function Box() {
 
     const context = canvas.getContext("2d");
     context.scale(0.5, 0.5);
-    context.lineCap = "square";
+    context.lineCap = "round";
     context.strokeStyle = "white";
     context.lineWidth = 20;
     contextRef.current = context;
