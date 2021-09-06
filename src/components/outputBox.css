@@ -1,0 +1,38 @@
+.outputDiv {
+  padding-top: 50px;
+  position: relative;
+  width: 300px;
+  margin-bottom: 30px;
+}
+
+.outputBarDiv {
+  float: right;
+  width: 280px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.outputBar {
+  position: relative;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.num {
+  position: relative;
+  top: -5px;
+  font-size: 1.2rem;
+  float: left;
+  width: 20px;
+  height: 100%;
+  color: white;
+}
+
+.max {
+  background-color: yellow;
+}
+
+.outputRow {
+  height: 20px;
+  margin-bottom: 20px;
+}
