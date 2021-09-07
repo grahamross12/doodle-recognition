@@ -4,7 +4,7 @@ import ResetButton from "./resetButton.jsx";
 import OutputBox from "./outputBox.jsx";
 import { Tensor, InferenceSession } from "onnxjs";
 
-const MODEL_URL = "./models/mnist_onnx_model.onnx";
+const MODEL_URL = "./models/mnist_model_conv.onnx";
 let sess;
 
 const loadModel = async () => {
@@ -51,7 +51,7 @@ function Box() {
   const startDrawingTouch = (event) => {
     const { clientX, clientY } = event.touches[0];
     startDrawing(clientX, clientY);
-  }
+  };
 
   const startDrawing = (x, y) => {
     contextRef.current.beginPath();
@@ -59,7 +59,7 @@ function Box() {
     setIsDrawing(true);
   };
 
-  const drawMouse = ( {nativeEvent} ) => {
+  const drawMouse = ({ nativeEvent }) => {
     if (!isDrawing) {
       return;
     }
@@ -67,13 +67,12 @@ function Box() {
     draw(layerX, layerY);
   };
 
- const drawTouch = (event) => {
+  const drawTouch = (event) => {
     if (!isDrawing) {
       return;
     }
     const { clientX, clientY } = event.touches[0];
     draw(clientX, clientY);
-
   };
 
   const draw = (x, y) => {
@@ -81,7 +80,7 @@ function Box() {
     contextRef.current.stroke();
     let imageData = contextRef.current.getImageData(0, 0, 280, 280);
     runModel(Float32Array.from(imageData.data), sess);
-  }
+  };
 
   const finishDrawing = () => {
     contextRef.current.closePath();
@@ -115,8 +114,8 @@ function Box() {
           </div>
           <div className="col-4 outputBox">
             <div className="outputWrapper">
-            <OutputBox output={output} />
-            <ResetButton onReset={handleReset} />
+              <OutputBox output={output} />
+              <ResetButton onReset={handleReset} />
             </div>
           </div>
         </div>
