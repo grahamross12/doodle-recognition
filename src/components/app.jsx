@@ -4,7 +4,8 @@ import ResetButton from "./resetButton.jsx";
 import OutputBox from "./outputBox.jsx";
 import { Tensor, InferenceSession } from "onnxjs";
 
-const MODEL_URL = "./models/mnist_model_conv.onnx";
+//const MODEL_URL = "./models/mnist_model_conv.onnx";
+const MODEL_URL = "./models/doodle_model_onnx.onnx";
 let sess;
 
 const loadModel = async () => {

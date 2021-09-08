@@ -1,6 +1,19 @@
 import React from "react";
 import "./outputBox.css";
 
+const labels = {
+  0: "Apple",
+  1: "Broccoli",
+  2: "Cat",
+  3: "Hat",
+  4: "Mug",
+  5: "Pencil",
+  6: "Potato",
+  7: "Snail",
+  8: "Teapot",
+  9: "Wine glass",
+};
+
 function OutputBox(props) {
   function generateResults() {
     let results = [];
@@ -11,7 +24,6 @@ function OutputBox(props) {
       results.push(createBar(props.output[i], isMax, i));
       isMax = false;
     }
-
     return results;
   }
 
@@ -35,7 +47,7 @@ function OutputBox(props) {
     let bar = (
       <div key={idx} className="outputRow">
         <div className="num">
-          <p>{idx}</p>
+          <p>{labels[idx]}</p>
         </div>
         <div key={idx} className="outputBarDiv">
           <div

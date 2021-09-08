@@ -6,7 +6,7 @@ async function test() {
 
   let input = new Float32Array(280 * 280 * 4).fill(0);
   input = new onnx.Tensor(input, "float32", [280, 280, 4]);
-  await sess.loadModel("./mnist_onnx_model.onnx");
+  await sess.loadModel("./doodle_model_onnx.onnx");
   const outputMap = await sess.run([input]);
   const outputTensor = outputMap.values().next().value;
   console.log(outputTensor.data);
