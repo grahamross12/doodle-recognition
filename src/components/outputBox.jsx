@@ -50,6 +50,7 @@ function OutputBox(props) {
           <p>{labels[idx]}</p>
         </div>
         <div key={idx} className="outputBarDiv">
+        <span className="tooltiptext">{Math.round(score*100)+'%'}</span>
           <div
             className={barClass}
             key={idx}

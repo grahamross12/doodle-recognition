@@ -1,6 +1,6 @@
 {
-  "short_name": "Image Recognition",
-  "name": "Image Recognition with neural networks",
+  "short_name": "Doodle Recognition",
+  "name": "Doodle recognition using neural networks",
   "icons": [
     {
       "src": "favicon.ico",

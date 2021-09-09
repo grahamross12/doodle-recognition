@@ -120,6 +120,7 @@ function Box() {
   }
 
   function handleReset() {
+    finishDrawing()
     clearBoard();
     setOutput(new Float32Array(10).fill(0));
     drawHint();
