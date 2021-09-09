@@ -19,6 +19,7 @@ function Box() {
   const contextRef = useRef(null);
   const [output, setOutput] = useState(new Float32Array(10).fill(0));
   const [isDrawing, setIsDrawing] = useState(false);
+  const [showHint, setShowHint] = useState(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -33,8 +34,24 @@ function Box() {
     context.lineCap = "round";
     context.strokeStyle = "white";
     context.lineWidth = 20;
+    
+    context.font = "50px Arial";
+    context.fillStyle = "white";
+    context.textAlign = "center";
+    context.fillText("Draw here!", 560/2, 560/2);
+
     contextRef.current = context;
   }, []);
+
+
+  function drawHint() {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+    context.font = "50px Arial";
+    context.fillStyle = "white";
+    context.textAlign = "center";
+    context.fillText("Draw here!", 560/2, 560/2);
+  }
 
   async function runModel(imageData, sess) {
     const input = new Tensor(imageData, "float32", [280, 280, 4]);
@@ -47,6 +64,7 @@ function Box() {
   const startDrawingMouse = ({ nativeEvent }) => {
     const { layerX, layerY } = nativeEvent;
     startDrawing(layerX, layerY);
+    
   };
 
   const startDrawingTouch = (event) => {
@@ -57,7 +75,9 @@ function Box() {
   const startDrawing = (x, y) => {
     contextRef.current.beginPath();
     contextRef.current.moveTo(x, y);
+    
     setIsDrawing(true);
+    
   };
 
   const drawMouse = ({ nativeEvent }) => {
@@ -77,6 +97,10 @@ function Box() {
   };
 
   const draw = (x, y) => {
+    if (showHint) {
+      clearBoard()
+      setShowHint(false);
+    }
     contextRef.current.lineTo(x, y);
     contextRef.current.stroke();
     let imageData = contextRef.current.getImageData(0, 0, 280, 280);
@@ -88,12 +112,19 @@ function Box() {
     setIsDrawing(false);
   };
 
-  function handleReset() {
+  function clearBoard() {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, 560, 560);
     contextRef.current = context;
+  }
+
+  function handleReset() {
+    clearBoard();
     setOutput(new Float32Array(10).fill(0));
+    drawHint();
+    setShowHint(true);
+    
   }
 
   return (
@@ -110,7 +141,9 @@ function Box() {
                 onMouseUp={finishDrawing}
                 onMouseMove={drawMouse}
                 ref={canvasRef}
-              ></canvas>
+              >
+                <p>Draw here!</p>
+              </canvas>
             </div>
           </div>
           <div className="col-4 outputBox">
